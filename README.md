@@ -3,7 +3,7 @@ Welcome to the SE Extended Scripts repository!, Here you can upload your scripts
 
 ## How to Download a Script
 1. **Browsing the ScriptList**:
-    - Navigate to the [SCRIPTLIST.md](https://github.com/SE-Extended/Scripts/SCRIPTLIST.md).
+    - Navigate to the [SCRIPTLIST.md](https://github.com/SE-Extended/Scripts/blob/main/SCRIPTLIST.md).
     - Browse the list of Scripts.
 2. **Downloading a Script**:
     - **Mobile/Tablet**:
@@ -21,7 +21,7 @@ Welcome to the SE Extended Scripts repository!, Here you can upload your scripts
 4. **Enabling The Script**: Click the toggle next to a Script.
 
 ## How to Create a Script
-1. **Following Documentation**: Start by following the documentation That is found [here](https://github.com/SE-Extended/Scripts/DOCUMENTATION.md).
+1. **Following Documentation**: Start by following the documentation That is found [here](https://github.com/SE-Extended/Scripts/blob/main/DOCUMENTATION.md).
 2. **Ide**:
     - Choose an `IDE` for creating your javascript file.
     - **Mobile/Tablet**:
