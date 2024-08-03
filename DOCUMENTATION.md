@@ -101,4 +101,4 @@ Additionally, there are also optional fields available which are: `displayName`,
 
 **Conclusion:**
 This document serves as a foundational reference for developing scripts using the Scripting API. By understanding the core concepts and available interfaces, Users can create powerful and innovative solutions to enhance the Snapchat experience.<br/>
-You can view the full file [here](https://github.com/SE-Extended/Scripts/index.d.ts)
+You can view the full file [here](https://github.com/SE-Extended/Scripts/blob/main/index.d.ts)
