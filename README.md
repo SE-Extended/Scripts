@@ -1,5 +1,11 @@
+<div align="center">
+  <img src="https://raw.githubusercontent.com/bocajthomas/SE-Extended/dev/images/logo/SE%20Extended%20Logo.png" height="250" />
+
+![Maintainer](https://img.shields.io/badge/maintainer-bocajthomas-black)
+
 # SE Extended Scripts
 Welcome to the SE Extended Scripts repository!, Here you can upload your scripts and download scripts created by other users
+</div>
 
 ## How to Download a Script
 1. **Browsing the ScriptList**:
