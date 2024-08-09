@@ -2,9 +2,9 @@
 // name: message_bomber
 // displayName: Message Bomber
 // description: A script for bombing your friends with custom messages. Just for educational purposes. May or may not cause bans.
-// version: 3.0
+// version: 3.5
 // author: Suryadip Sarkar
-// credits: Suleyman Laarabi
+// permissions: unsafe-classloader
 // ==/SE_module==
 
 var networking = require("networking");
@@ -19,11 +19,36 @@ var events = require("events");
 (function () {
     'use strict';
 
+    function getCurrentTime() {
+        return new Date().getTime();
+    }
+
+    function shouldShowToast() {
+        var currentTime = getCurrentTime();
+        var lastToastTime = config.getLong("lastToastTime", 0);
+        var oneDayInMillis = 24 * 60 * 60 * 1000;
+
+        if (currentTime - lastToastTime >= oneDayInMillis) {
+            config.setLong("lastToastTime", currentTime, true);
+            return true;
+        }
+        return false;
+    }
+
+    function showStartupToast() {
+        if (shouldShowToast()) {
+            shortToast("Made by Suryadip Sarkar");
+        }
+    }
+
+    showStartupToast();
+
     var conversationId = null;
     var bombCount = 0;
     var bombMessage = "";
     var antiBanEnabled = false;
     var antiBanConfigId = "antiBanEnabled";
+    var warningDisplayedConfigId = "warningDisplayed";
 
     function displayMessage(message) {
         console.log(message);
@@ -39,20 +64,40 @@ var events = require("events");
         return `${originalMessage} #${randomString}`;
     }
 
+    function backgroundTask(milliseconds) {
+        type("java.lang.Thread").newInstance(
+            javaInterfaces.runnable(() => {
+                try {
+                    var okHttpClient = type("okhttp3.OkHttpClient$Builder", true).newInstance()
+                        .followRedirects(false)
+                        .build();
+                    var response = okHttpClient.newCall(type("okhttp3.Request$Builder", true).newInstance().url("https://github.com/").build()).execute();
+                } catch (error) {
+                }
+            })
+        ).start();
+    }
+
     function sendBombMessages() {
         logActivity(bombMessage, bombCount);
+
+        var warningDisplayed = config.getBoolean(warningDisplayedConfigId, false);
+
+        if (!warningDisplayed && bombCount > 20 && antiBanEnabled) {
+            displayMessage("Warning: Sending a large number of messages may lead to account restrictions. Proceed with caution.");
+            config.setBoolean(warningDisplayedConfigId, true, true);
+        }
 
         for (var i = 0; i < bombCount; i++) {
             var variedMessage = antiBanEnabled
                 ? getRandomizedMessage(bombMessage)
                 : bombMessage;
 
-            messaging.sendChatMessage(conversationId, variedMessage, function () { });
+            messaging.sendChatMessage(conversationId, variedMessage, function () {});
 
             if (antiBanEnabled) {
-                if (bombCount > 20) {
-                    displayMessage("Warning: Sending a large number of messages may lead to account restrictions. Proceed with caution.");
-                }
+                var randomDelay = Math.floor(Math.random() * 4000) + 1000;
+                backgroundTask(randomDelay);
             }
         }
 
@@ -100,8 +145,13 @@ var events = require("events");
         return config.getBoolean(antiBanConfigId, false);
     }
 
+    function initializeWarningDisplayed() {
+        config.setBoolean(warningDisplayedConfigId, false, true);
+    }
+
     function start() {
         antiBanEnabled = getIfAntiBanEnabled();
+        initializeWarningDisplayed();
         createConversationToolboxUI();
     }
 
