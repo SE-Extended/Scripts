@@ -21,8 +21,8 @@
 
 ## Message Bomber
 - **Description:** A script for bombing your friends with custom messages. Just for educational purposes. May or May not cause bans.
-- **Version:** 2.0
-- **Author:** Suryadip Sarkar & Suleyman Laarabi
+- **Version:** 3.5
+- **Author:** Suryadip Sarkar
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/message_bomber.js)
 
