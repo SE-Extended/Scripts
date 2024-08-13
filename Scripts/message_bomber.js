@@ -364,7 +364,7 @@ var events = require("events");
             enterMessages: "أدخل عدد الرسائل للقصف",
             enterMessage: "أدخل الرسالة للقصف",
             messageBomb: "قنبلة !",
-            funPop: "فرقعة ممتعة!",
+            funPop: "مفاجأة !",
             messageSent: "تم إرسال الرسائل: ",
             warning: "تحذير: إرسال عدد كبير من الرسائل قد يؤدي إلى تقييد الحساب. تابع بحذر.",
             pleaseEnterValid: "الرجاء إدخال عدد صحيح من الرسائل ورسالة للقصف",
