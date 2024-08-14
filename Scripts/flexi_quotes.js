@@ -19,6 +19,28 @@ var settingsContext = {
     events: [],
 };
 
+function getCurrentTime() {
+        return new Date().getTime();
+    }
+
+function shouldShowToast() {
+    var currentTime = getCurrentTime();
+    var nextToastTime = config.getLong("nextToastTime", 0); 
+
+    if (currentTime >= nextToastTime || nextToastTime === 0) {
+        var oneDayInMillis = 24 * 60 * 60 * 1000;
+        config.setLong("nextToastTime", currentTime + oneDayInMillis, true);
+        return true;
+    }
+        return false;
+}
+
+function showStartupToast() {
+    if (shouldShowToast()) {
+        shortToast("Made by Suryadip Sarkar");
+    }
+}
+
 var quotes = [
     "Believe you can and you're halfway there.",
     "Don't watch the clock; do what it does. Keep going.",
@@ -260,6 +282,7 @@ function isValidHex(hex) {
 }
 
 module.onSnapMainActivityCreate = activity => {
+    showStartupToast();
     var randomQuote = getRandomQuote();
     var fontSize = config.getInteger("fontSize", 20);
     var customColor = config.get("customColor", defaultColor);
