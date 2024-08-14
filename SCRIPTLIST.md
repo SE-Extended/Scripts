@@ -33,6 +33,13 @@
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/custom_reminders.js)
 
+## Flexi Quotes
+- **Description:** A script that shows customizable motivation quotes on Snapchat startup, with options for dialog or toast notifications.
+- **Version:** 4.0
+- **Author:** Suryadip Sarkar & Jacob Thomas
+
+[Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/flexi_quotes.js)
+
 ## Saved Replies
 - **Description:** A Script That Allows Users to Save and Send Custom Replies
 - **Version:** 1.5
