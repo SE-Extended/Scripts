@@ -12,6 +12,13 @@
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/loginfix.js)
 
+## Scheduled Messages
+- **Description:** A Script That Allows For Scheduling Messages and Recurring Messages. Please don't remove Snapchat from the background when your message is scheduled.
+- **Version:** 2.0
+- **Author:** Suryadip Sarkar (Credits: Jacob Thomas & rhunk)
+
+[Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/scheduled_messages.js)
+
 ## Greetings Toast
 - **Description:** A Script that shows a greetings toast on the startup of Snapchat.
 - **Version:** 3.0
