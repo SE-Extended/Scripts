@@ -332,6 +332,7 @@ var config = require("config");
 
   function startRecurringSchedule() {
     isRecurringScheduleActive = true;
+    config.set("conversationId", conversationId, true);
     config.setBoolean("isRecurringScheduleActive", true, true);
     config.set("recurringMessage", recurringMessage, true);
     config.set("recurringInterval", recurringInterval, true);
@@ -370,8 +371,13 @@ var config = require("config");
       var nextRecurringTime = config.getLong("nextRecurringTime", 0);
 
       if (currentTime >= nextRecurringTime) {
+        conversationId = config.get("conversationId");
+        if (conversationId) {
         sendMessage(conversationId, config.get("recurringMessage", ""));
         config.setLong("nextRecurringTime", calculateNextRecurringTime(), true);
+      } else{
+      console.error("Error: conversationId not found for recurring message.");
+        }       
       }
     }
   }
