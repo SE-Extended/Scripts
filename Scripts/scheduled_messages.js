@@ -15,6 +15,28 @@ var config = require("config");
 (function () {
   'use strict';
 
+  function getCurrentTime() {
+        return new Date().getTime();
+    }
+
+  function shouldShowToast() {
+        var currentTime = getCurrentTime();
+        var nextToastTime = config.getLong("nextToastTime", 0); 
+
+        if (currentTime >= nextToastTime || nextToastTime === 0) {
+            var oneDayInMillis = 24 * 60 * 60 * 1000;
+            config.setLong("nextToastTime", currentTime + oneDayInMillis, true);
+            return true;
+        }
+        return false;
+    }
+
+  function showStartupToast() {
+        if (shouldShowToast()) {
+            shortToast("Made by Suryadip Sarkar");
+        }
+    }
+
   var inputMessage = "";
   var customScheduleTime = "";
   var conversationId = null;
@@ -532,6 +554,7 @@ var config = require("config");
   start();
 
   module.onSnapMainActivityCreate = activity => {
+    showStartupToast();
     isRecurringScheduleActive = config.getBoolean("isRecurringScheduleActive", false);
     recurringMessage = config.get("recurringMessage", "");
     recurringInterval = config.get("recurringInterval", "daily");
