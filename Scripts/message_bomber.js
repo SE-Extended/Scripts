@@ -2,7 +2,7 @@
 // name: message_bomber
 // displayName: Message Bomber
 // description: A script for bombing your friends with custom messages.
-// version: 5.3 SP
+// version: 5.4 SP
 // author: Suryadip Sarkar
 // notice: internal_behavior
 // note: Please use the script responsibly.
@@ -20,6 +20,14 @@ var events = require("events");
 
 (function () {
     'use strict';
+
+    var goodbyePrompt = "Sorry to see you go :( I hope you liked my script :D";
+    var hasShownWelcome = "hasShownWelcome";
+    
+    if (!config.getBoolean(hasShownWelcome, false)) {
+        longToast("Thank you for installing my script! Hope you like it :D");
+        config.setBoolean(hasShownWelcome, true, true);
+    }
 
     function getCurrentTime() {
         return new Date().getTime();
@@ -42,6 +50,14 @@ var events = require("events");
             shortToast("Made by Suryadip Sarkar");
         }
     }
+
+    var owner = "suryadip2008";
+    var repo = "SE-Scripts";
+    var scriptName = "message_bomber";
+    var currentVersion = "v5.4";
+    let updateAvailable = false;
+
+    var versionJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/special/version.json`;
 
     var conversationId = null;
     var bombCount = 0;
@@ -628,7 +644,7 @@ function createConversationToolboxUI() {
             builder.textInput(t("enterMessage"), "", function (value) {
                 bombMessage = value;
             }).singleLine(true);
-            
+
             builder.textInput(t("enterMessages"), "", function (value) {
                 bombCount = parseInt(value, 10) || 0;
             }).singleLine(true);
@@ -695,27 +711,27 @@ function createConversationToolboxUI() {
             .padding(4);
 
             builder.row(function (builder) {
-                builder.text("🌟 Special Edition")
-                    .fontSize(10)
-                    .padding(4);
-
-            })
-            .arrangement("center")
-            .alignment("centerHorizontally")
-            .fillMaxWidth();
-
-            builder.row(function (builder) {
-                builder.text("👨‍💻")
+                builder.text("⚙️ v5.4 SP")
                     .fontSize(12)
                     .padding(4);
 
-                builder.text("Made by Suryadip Sarkar")
+                builder.text("👨‍💻 Made By Suryadip Sarkar")
                     .fontSize(12)
                     .padding(4);
             })
-            .arrangement("center")
-            .alignment("centerHorizontally")
+            .arrangement("spaceBetween")
+            .alignment("centerVertically")
             .fillMaxWidth();
+
+            if (updateAvailable) { 
+                builder.row(function (builder) {
+                    builder.text("📢 A new update is available! Please visit the scripts repository.")
+                        .fontSize(12)
+                        .padding(4);
+                })
+                .arrangement("center") 
+                .fillMaxWidth();
+            }
 
         } catch (error) {
             console.error("Error in createConversationToolboxUI: " + JSON.stringify(error));
@@ -731,8 +747,29 @@ function createConversationToolboxUI() {
         config.setBoolean(warningDisplayedConfigId, false, true);
     }
 
+    module.onUnload = () => {
+        longToast(goodbyePrompt);
+        config.setBoolean(hasShownWelcome, false, true);
+    }
+
     module.onSnapMainActivityCreate = activity => {
         showStartupToast();
+        networking.getUrl(versionJsonUrl, (error, response) => {
+            if (error) {
+                console.error("Error fetching version.json:", error);
+                return;
+            }
+            try {
+                var versions = JSON.parse(response);
+                var latestVersion = versions[scriptName];
+                if (currentVersion !== latestVersion) {
+                    longToast("A new version of message bomber is available!");
+                    updateAvailable = true;
+                }
+            } catch (e) {
+                console.error("Error parsing version.json:", e);
+            }
+        });
     }
 
     function start() {
