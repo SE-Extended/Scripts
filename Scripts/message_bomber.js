@@ -54,7 +54,7 @@ var events = require("events");
     var owner = "suryadip2008";
     var repo = "SE-Scripts";
     var scriptName = "message_bomber";
-    var currentVersion = "v5.4";
+    var currentVersion = "v5.4 SP";
     let updateAvailable = false;
 
     var versionJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/special/version.json`;
