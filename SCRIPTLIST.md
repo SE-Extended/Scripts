@@ -20,7 +20,7 @@
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/greetings_toast.js)
 
 ## Message Bomber
-- **Description:** A script for bombing your friends with custom messages. Just for educational purposes. May or May not cause bans.
+- **Description:** A script for bombing your friends with custom messages.
 - **Version:** 5.4 SP
 - **Author:** Suryadip Sarkar
 
