@@ -46,3 +46,10 @@
 - **Author:** Suryadip Sarkar
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/saved_replies.js)
+
+## Daily News
+- **Description:** A script that shows daily news as a dialog on Snapchat startup.
+- **Version:** 1.0
+- **Author:** Suryadip Sarkar
+
+[Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/daily_news.js)
