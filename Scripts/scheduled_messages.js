@@ -1,8 +1,9 @@
 // ==SE_module==
 // name: scheduled_messages
 // displayName: Scheduled Messages
-// description: A Script That Allows For Scheduling Messages and Recurring Messages. Please don't remove Snapchat from the background when your message is scheduled.
-// version: 2.5
+// description: A Script That Allows For Scheduling Messages. Please don't remove Snapchat from the background when your message is scheduled.
+// version: 2.6 STABLE
+// updateUrl: https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/scheduled_messages.js
 // author: Suryadip Sarkar
 // credits: rhunk & Jacob Thomas
 // minSEVersion: Versions after 20/08/24
@@ -15,35 +16,70 @@ var config = require("config");
 (function () {
   'use strict';
 
-  function getAuthorToastCurrentTime() {
-    return new Date().getTime();
-  }
-
-  function shouldShowAuthorToast() {
-    var currentTime = getAuthorToastCurrentTime();
-    var nextAuthorToastTime = config.getLong("nextAuthorToastTime", 0); 
-
-    if (currentTime >= nextAuthorToastTime || nextAuthorToastTime === 0) {
-        var oneDayInMillis = 24 * 60 * 60 * 1000;
-        config.setLong("nextAuthorToastTime", currentTime + oneDayInMillis, true);
-        return true;
+    var goodbyePrompt = "Sorry to see you go :( I hope you liked my script :D";
+    var hasShownWelcome = "hasShownWelcome";
+    
+    if (!config.getBoolean(hasShownWelcome, false)) {
+        longToast("Thank you for installing my script! Hope you like it :D");
+        config.setBoolean(hasShownWelcome, true, true);
     }
-    return false;
-  }
 
-  function showAuthorStartupToast() {
-    if (shouldShowAuthorToast()) {
-        shortToast("Made by Suryadip Sarkar");
+    var owner = "suryadip2008";
+    var repo = "SE-Scripts";
+    var scriptName = "scheduled_messages";
+    var currentVersion = "v2.6";
+    let updateAvailable = false;
+
+    var versionJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/version.json`;
+    var messagesJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/messages.json`;
+
+    function checkForNewVersion() {
+        networking.getUrl(versionJsonUrl, (error, response) => {
+            if (error) {
+                console.error("Error fetching version.json:", error);
+                return;
+            }
+            try {
+                var versions = JSON.parse(response);
+                var latestVersion = versions[scriptName];
+                if (currentVersion !== latestVersion) {
+                    longToast("A new version of scheduled messages is available! Please refresh the scripts page.");
+                    updateAvailable = true;
+                }
+            } catch (e) {
+                console.error("Error parsing version.json:", e);
+            }
+        });
     }
-  }
+    
+    function checkForNewMessages() {
+        networking.getUrl(messagesJsonUrl, (error, response) => {
+            if (error) {
+                console.error("Error fetching messages.json:", error);
+                return;
+            }
+            try {
+                var messages = JSON.parse(response);
+                for (var i = 0; i < messages.length; i++) {
+                    var message = messages[i];
+                    var messageId = message.id;
+                    if (!config.getBoolean(`message_${messageId}`, false)) {
+                        longToast(message.text);
+                        config.setBoolean(`message_${messageId}`, true);
+                        config.save();
+                        break;
+                    }
+                }
+            } catch (e) {
+                console.error("Error parsing messages.json:", e);
+            }
+        });
+    }
 
   var inputMessage = "";
   var customScheduleTime = "";
   var conversationId = null;
   var scheduledMessages = [];
-  var recurringMessage = "";
-  var recurringInterval = "daily";
-  var isRecurringScheduleActive = false;
 
   var selectedLanguageKey = "selectedLanguage";
   var selectedLanguage = config.get(selectedLanguageKey, 'en');
@@ -352,74 +388,6 @@ var config = require("config");
     }
   }
 
-  function startRecurringSchedule() {
-    isRecurringScheduleActive = true;
-    config.set("conversationId", conversationId, true);
-    config.setBoolean("isRecurringScheduleActive", true, true);
-    config.set("recurringMessage", recurringMessage, true);
-    config.set("recurringInterval", recurringInterval, true);
-    config.setLong("nextRecurringTime", calculateNextRecurringTime(), true);
-    displayMessage(t("recurringStarted") + recurringInterval);
-  }
-
-  function cancelRecurringSchedule() {
-    if (isRecurringScheduleActive) {
-      isRecurringScheduleActive = false;
-      config.setBoolean("isRecurringScheduleActive", false, true);
-      config.set("recurringMessage", "", true);
-      config.set("recurringInterval", "daily", true);
-      config.setLong("nextRecurringTime", 0, true);
-      displayMessage(t("recurringCancelled"));
-    } else {
-      displayMessage(t("noActiveRecurring"));
-    }
-  }
-
-  function calculateNextRecurringTime() {
-    var now = new Date();
-    var next = new Date(now);
-    switch(recurringInterval) {
-    case "daily":
-      next.setDate(now.getDate() + 1);
-      break;
-    case "weekly":
-      next.setDate(now.getDate() + 7);
-      break;
-    case "monthly":
-      next.setMonth(now.getMonth() + 1);
-      break;
-  }
-    return next.getTime();
-  }
-
-  function checkAndSendRecurringMessage() {
-    if (isRecurringScheduleActive) {
-      var currentTime = Date.now();
-      var nextRecurringTime = config.getLong("nextRecurringTime", 0);
-
-      console.log("Current time:", new Date(currentTime).toString());
-      console.log("Next recurring time:", new Date(nextRecurringTime).toString());
-
-      if (currentTime >= nextRecurringTime) {
-        conversationId = config.get("conversationId");
-        if (conversationId) {
-          sendMessage(conversationId, config.get("recurringMessage", ""));
-        
-          var newNextRecurringTime = calculateNextRecurringTime();
-          config.setLong("nextRecurringTime", newNextRecurringTime, true);
-        
-          console.log("Message sent. New next recurring time:", new Date(newNextRecurringTime).toString());
-        } else {
-          console.error("Error: conversationId not found for recurring message.");
-      }
-    } else {
-        console.log("Not yet time to send recurring message.");
-    }
-  } else {
-      console.log("Recurring schedule is not active.");
-  }
-}
-
   function createConversationToolboxUI() {
     im.create("conversationToolbox", function (builder, args) {
       try {
@@ -494,50 +462,6 @@ var config = require("config");
           });
         });
 
-        builder.textInput(t("recurringMessage"), "", function (value) {
-          recurringMessage = value;
-        }).singleLine(true);
-
-        var intervals = [t("daily"), t("weekly"), t("monthly")];
-        var intervalIndex = recurringInterval === "daily" ? 0 : (recurringInterval === "weekly" ? 1 : 2);
-
-        builder.row(function(rowBuilder) {
-          var intervalText = rowBuilder.text(t("interval") + ": " + intervals[intervalIndex]);
-          rowBuilder.slider(0, 2, 3, intervalIndex, function(value) {
-            switch(value) {
-              case 0:
-                recurringInterval = "daily";
-                break;
-              case 1:
-                recurringInterval = "weekly";
-                break;
-              case 2:
-                recurringInterval = "monthly";
-                break;
-            }
-            intervalText.label(t("interval") + ": " + intervals[value]);
-          });
-        })
-        .arrangement("spaceBetween")
-        .fillMaxWidth()
-        .padding(4);
-
-        builder.row(function(rowBuilder) {
-          rowBuilder.button(t("startRecurring"), function() {
-            if (recurringMessage.trim() !== "") {
-              startRecurringSchedule();
-            } else {
-              displayMessage(t("pleaseEnterRecurring"));
-            }
-          });
-
-          rowBuilder.text(" ");
-
-          rowBuilder.button(t("cancelRecurring"), function() {
-            cancelRecurringSchedule();
-          });
-        });
-
         var languages = ["English", "Portuguese", "Punjabi", "German", "Russian", "Arabic", "French"];
         var languageCodes = ['en', 'pt', 'pa', 'de', 'ru', 'ar', 'fr'];
         var oldSelectedLanguage = config.get(selectedLanguageKey, 'en');
@@ -557,6 +481,29 @@ var config = require("config");
         .fillMaxWidth()
         .padding(4);
 
+        builder.row(function (builder) {
+                builder.text("⚙️ v2.6 STABLE")
+                    .fontSize(12)
+                    .padding(4);
+
+                builder.text("👨‍💻 Made By Suryadip Sarkar")
+                    .fontSize(12)
+                    .padding(4);
+            })
+            .arrangement("spaceBetween")
+            .alignment("centerVertically")
+            .fillMaxWidth();
+
+        if (updateAvailable) { 
+                builder.row(function (builder) {
+                    builder.text("📢 A new update is available! Please refresh the scripts page & then click on Update Module.")
+                        .fontSize(12)
+                        .padding(4);
+                })
+                .arrangement("center") 
+                .fillMaxWidth();
+            }
+
       } catch (error) {
         console.error("Error in createConversationToolboxUI: " + JSON.stringify(error));
       }
@@ -570,12 +517,8 @@ var config = require("config");
   start();
 
   module.onSnapMainActivityCreate = activity => {
-    showAuthorStartupToast();
-    isRecurringScheduleActive = config.getBoolean("isRecurringScheduleActive", false);
-    recurringMessage = config.get("recurringMessage", "");
-    recurringInterval = config.get("recurringInterval", "daily");
-
-    checkAndSendRecurringMessage();
-  };
+    checkForNewVersion(); 
+    checkForNewMessages();
+  }
 
 })();
