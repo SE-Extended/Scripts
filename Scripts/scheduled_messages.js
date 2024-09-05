@@ -510,6 +510,11 @@ var config = require("config");
     });
   }
 
+  module.onUnload = () => {
+    longToast(goodbyePrompt);
+    config.setBoolean(hasShownWelcome, false, true);
+  }
+
   function start() {
     createConversationToolboxUI();
   }
