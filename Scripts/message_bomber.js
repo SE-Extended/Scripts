@@ -710,7 +710,7 @@ function createConversationToolboxUI() {
                 if (bombCount > 0 && bombMessage && customScheduleTime) {
                     scheduleBomb(bombMessage, bombCount, customScheduleTime);
                 } else {
-                    displayMessage("Please enter Number of messages, Message and Schedule time.");
+                    displayMessage(t("pleaseEnterValid"));
                 }
             });
 
