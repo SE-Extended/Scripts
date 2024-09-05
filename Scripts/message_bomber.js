@@ -3,7 +3,7 @@
 // displayName: Message Bomber
 // description: A script for bombing your friends with custom messages. Just for educational purposes. May or may not cause bans.
 // version: 5.5
-// updateUrl: https://raw.githubusercontent.com/suryadip2008/SE-Scripts/main/scripts/message_bomber.js
+// updateUrl: https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/message_bomber.js
 // author: Suryadip Sarkar
 // notice: internal_behavior
 // note: Please use the script responsibly.
@@ -36,7 +36,7 @@ var events = require("events");
     var currentVersion = "v5.5";
     let updateAvailable = false;
 
-    var versionJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/version.json`;
+    var versionJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/special/version.json`;
     var messagesJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/messages.json`;
 
     function checkForNewVersion() {
