@@ -36,7 +36,7 @@ var events = require("events");
     var currentVersion = "v5.5";
     let updateAvailable = false;
 
-    var versionJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/special/version.json`;
+    var versionJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/version.json`;
     var messagesJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/messages.json`;
 
     function checkForNewVersion() {
