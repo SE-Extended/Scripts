@@ -46,3 +46,10 @@
 - **Author:** Suryadip Sarkar
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/saved_replies.js)
+
+## Scheduled Messages
+- **Description:** A Script That Allows For Scheduling Messages and Recurring Messages.
+- **Version:** 2.6
+- **Author:** Suryadip Sarkar, Jacob, Rhunk 
+
+[Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/scheduled_messages.js)
