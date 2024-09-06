@@ -2,7 +2,7 @@
 // name: scheduled_messages
 // displayName: Scheduled Messages
 // description: A Script That Allows For Scheduling Messages. Please don't remove Snapchat from the background when your message is scheduled.
-// version: 2.6 STABLE
+// version: 2.6
 // updateUrl: https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/scheduled_messages.js
 // author: Suryadip Sarkar
 // credits: rhunk & Jacob Thomas
