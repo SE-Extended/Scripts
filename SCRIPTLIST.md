@@ -53,10 +53,3 @@
 - **Author:** Suryadip Sarkar, Jacob, Rhunk 
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/scheduled_messages.js)
-
-## Daily News
-- **Description:** A script that shows daily news as a dialog on Snapchat startup.
-- **Version:** 1.5
-- **Author:** Suryadip Sarkar
-
-[Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/daily_news.js)
