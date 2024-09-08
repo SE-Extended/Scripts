@@ -20,8 +20,8 @@
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/greetings_toast.js)
 
 ## Message Bomber
-- **Description:** A script for bombing your friends with custom messages. Just for educational purposes. May or May not cause bans.
-- **Version:** 5.0
+- **Description:** A script for bombing your friends with custom messages.
+- **Version:** 5.5
 - **Author:** Suryadip Sarkar
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/message_bomber.js)
@@ -47,9 +47,16 @@
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/saved_replies.js)
 
+## Scheduled Messages
+- **Description:** A Script That Allows For Scheduling Messages and Recurring Messages.
+- **Version:** 2.6
+- **Author:** Suryadip Sarkar, Jacob, Rhunk 
+
+[Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/scheduled_messages.js)
+
 ## Daily News
 - **Description:** A script that shows daily news as a dialog on Snapchat startup.
-- **Version:** 1.0
+- **Version:** 1.5
 - **Author:** Suryadip Sarkar
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/daily_news.js)
