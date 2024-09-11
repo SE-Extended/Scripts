@@ -56,7 +56,7 @@
 
 ## Daily News
 - **Description:** A script that shows daily news as a dialog on Snapchat startup.
-- **Version:** 1.5
+- **Version:** 2.2
 - **Author:** Suryadip Sarkar
 
 [Download Script](https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/daily_news.js)
