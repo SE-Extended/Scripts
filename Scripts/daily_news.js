@@ -4,7 +4,7 @@
 // description: A script that shows daily news as a dialog on Snapchat startup.
 // version: 2.2
 // author: Suryadip Sarkar
-// updateUrl: https://raw.githubusercontent.com/suryadip2008/SE-Scripts/main/scripts/daily_news.js
+// updateUrl: https://raw.githubusercontent.com/SE-Extended/Scripts/main/Scripts/daily_news.js
 // ==/SE_module==
 
 var networking = require("networking");
