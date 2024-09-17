@@ -10,10 +10,7 @@ Every script written for the Scripting Engine must include a header section at t
 // author: Author
 // ==/SE_module==
 ```
-The following fields are required: `name`, `version`, `author`<br>
-Additionally, there are also optional fields available which are: `displayName`, `description`, `minSnapchatVersion`, `minSEVersion`, `permissions`
-
-### Field Description
+## Field Description
 
 `name`: Descriptive name for the script. Must be composed of lowercase letters and underscores only.<br>
 `displayName`: Display name of the script. <br>
@@ -22,10 +19,15 @@ Additionally, there are also optional fields available which are: `displayName`,
 `description`: Brief explanation of the script's functionality.<br>
 `minSnapchatVersion`: Minimum required Snapchat version code (e.g. 13.1.0.43).<br>
 `minSEVersion`: Minimum required SE Extended version code (e.g. 1.0.0).<br>
-`permissions`: Grant permissions to the script (e.g. unsafe-classloader)<br>
-`executionSides`: Set a custom execution side (e.g. core, manager)
+`permissions`: Grant permissions to the script (e.g. unsafe-classloader).<br>
+`executionSides`: Set a custom execution side (e.g. core, manager).<br>
+`note`: Share important infomation about the script that users must know about.<br>
+`notice`: Adds warnings about the scripts behavour. Only `unstable`, `ban_risk`, `internal_behavior` is currenly supported.
 
-### Scripting API
+> [!NOTE]
+> The following fields are required: `name`, `version`, `author`
+
+## Scripting API
 
 **Introduction:** This header provides a comprehensive overview of the Scripting API, offering detailed explanations of its core interfaces, functions, and concepts. This API empowers developers to create custom scripts that extend and enhance the functionality of the SE Extended platform.
 
@@ -69,7 +71,7 @@ Additionally, there are also optional fields available which are: `displayName`,
 
 **module:** Contains information about the current script module and provides hooks for lifecycle events.
 - **Properties:**
-   - `info`: An object containing module metadata (`name`, `displayName`, `version`, `description`, `author`, `minSnapchatVersion`, `minSEVersion`, `grantedPermissions`).
+   - `info`: An object containing module metadata (`name`, `displayName`, `version`, `description`, `author`, etc).
    - `exports`: An optional object for exporting module-specific functions or variables.
    - `onSnapEnhanceLoad`: A callback function triggered when the SE Extended environment is loaded.
    - `onSnapApplicationLoad`: A callback function triggered when the Snapchat application is loaded.
@@ -101,4 +103,4 @@ Additionally, there are also optional fields available which are: `displayName`,
 
 **Conclusion:**
 This document serves as a foundational reference for developing scripts using the Scripting API. By understanding the core concepts and available interfaces, Users can create powerful and innovative solutions to enhance the Snapchat experience.<br/>
-You can view the full file [here](https://github.com/SnapEnhance/docs/blob/main/index.d.ts)
+You can view the full file [here](https://codeberg.org/SnapEnhance/scripting-docs/src/branch/main/index.d.ts)
