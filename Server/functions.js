@@ -1,3 +1,3 @@
-shortToast("Server-side: True")
+shortToast("Beta-Side: True")
 sleep(600)
-shortToast("Runing v0.1")
+shortToast("Runing beta version")
